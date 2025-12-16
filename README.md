@@ -7,11 +7,6 @@ J'ai tout formaté (l'arborescence, les tableaux, les blocs de code) pour que ce
 ```markdown
 # 🌍 TP2 Pipeline BIS – Exploration et Enrichissement GEO
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-Data_Analysis-150458?style=for-the-badge&logo=pandas&logoColor=white)
-![Plotly](https://img.shields.io/badge/Plotly-Visualization-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
-![LLaMA](https://img.shields.io/badge/AI-LLaMA_3.2-orange?style=for-the-badge)
-
 ## 📖 1. Présentation du projet
 
 Ce projet a pour objectif d’explorer et d’enrichir des données d’adresses françaises à l’aide de deux APIs et d'un modèle d'IA local.
@@ -102,13 +97,15 @@ tp2-exploration/
 
 ---
 
-##🚀 4. Installation et exécution###Cloner le projet```bash
+##🚀 4. Installation et exécution
+
+###Cloner le projet```
 git clone <repo_url>
 cd tp2-exploration
 
 ```
 
-###Environnement virtuel```bash
+###Environnement virtuel```
 python -m venv .venv
 source .venv/bin/activate   # Linux/macOS
 # ou
@@ -116,7 +113,8 @@ source .venv/bin/activate   # Linux/macOS
 
 ```
 
-###Installation des dépendances```bash
+###Installation des dépendances```
+
 uv add httpx pandas duckdb litellm python-dotenv tenacity tqdm pyarrow pydantic pytest
 
 ```
@@ -143,13 +141,17 @@ Ou via les notebooks :
 
 ---
 
-##📊 5. Visualisations incluses* **Carte interactive** : Latitude/longitude des adresses avec indicateur couleur du score de confiance.
+##📊 5. Visualisations incluses*
+
+**Carte interactive** : Latitude/longitude des adresses avec indicateur couleur du score de confiance.
 * **Population** : Graphique en barres de la population par commune.
 * **Anomalies** : Détection visuelle des adresses à score faible (<0.5) ou des doublons.
 
 ---
 
-##✅ 6. TestsLes tests unitaires couvrent l'intégralité du pipeline (Fetchers, Transformer, Quality).
+##✅ 6. Tests
+
+Les tests unitaires couvrent l'intégralité du pipeline (Fetchers, Transformer, Quality).
 
 Pour lancer les tests avec un rapport de couverture :
 
@@ -162,7 +164,9 @@ Un rapport HTML sera généré dans le dossier `htmlcov/`.
 
 ---
 
-##📝 7. ConclusionCe projet illustre l’intégration de plusieurs APIs pour enrichir des données géographiques au sein d'un pipeline modulaire et testable. L’usage de **LLaMA** apporte une couche d'intelligence pour guider l’analyse, tandis que le format **Parquet** et les visualisations **Plotly** assurent performance et lisibilité.
+##📝 7. Conclusion
+
+Ce projet illustre l’intégration de plusieurs APIs pour enrichir des données géographiques au sein d'un pipeline modulaire et testable. L’usage de **LLaMA** apporte une couche d'intelligence pour guider l’analyse, tandis que le format **Parquet** et les visualisations **Plotly** assurent performance et lisibilité.
 
 ```
 
