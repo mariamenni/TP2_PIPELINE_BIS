@@ -1,8 +1,3 @@
-Voici le **code brut complet** du fichier `README.md`.
-
-Tu as juste à cliquer sur le bouton **"Copy"** en haut à droite du bloc noir ci-dessous, et à coller le tout dans ton fichier `README.md`.
-
-J'ai tout formaté (l'arborescence, les tableaux, les blocs de code) pour que ce soit parfait sur GitHub.
 
 ```markdown
 # 🌍 TP2 Pipeline BIS – Exploration et Enrichissement GEO
