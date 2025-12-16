@@ -57,7 +57,9 @@ Sauvegarde en **JSON** (brut) et **Parquet** (optimisé pour l'analyse).
 
 ---
 
-##📂 Structure du projet```bash
+## 📂 Structure du projet
+
+```text
 tp2-exploration/
 │
 ├── .venv/                  # Environnement virtuel Python
@@ -81,7 +83,6 @@ tp2-exploration/
 ├── main.py                 # Script d'exécution rapide
 ├── pyproject.toml          # Dépendances (uv/poetry)
 └── README.md
-
 
 
 ##🛠️ Choix techniques| Domaine | Technologies | Justification |
