@@ -1,8 +1,12 @@
 #🌍 TP2 Pipeline BIS – Exploration et Enrichissement GEO
+
+
 ##📖 Présentation du projet
+
 Ce projet a pour objectif d’explorer et d’enrichir des données d’adresses françaises en combinant la puissance de deux APIs publiques et l'intelligence artificielle locale.
 
 ###Sources de données* 
+
 📍 **API Adresse (Base Adresse Nationale - BAN)** : Géocodage, récupération de la latitude, longitude, code postal et ville.
 * 🏙️ **Geo API Gouv (Communes)** : Enrichissement démographique (population, département, etc.).
 
@@ -162,6 +166,8 @@ pytest tests/ -v --cov=pipeline --cov-report=html
 *Le rapport HTML sera disponible dans le dossier `htmlcov/'
 
 ##📝 Conclusion
+
+
 Ce TP illustre la mise en place d'un pipeline de **Data Engineering moderne** :
 
 1. Intégration d'APIs tierces.
