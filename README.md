@@ -1,63 +1,66 @@
-#🌍 TP2 Pipeline BIS – Exploration et Enrichissement GEO
+Voici le **code brut complet** du fichier `README.md`.
 
+Tu as juste à cliquer sur le bouton **"Copy"** en haut à droite du bloc noir ci-dessous, et à coller le tout dans ton fichier `README.md`.
 
-##📖 Présentation du projet
+J'ai tout formaté (l'arborescence, les tableaux, les blocs de code) pour que ce soit parfait sur GitHub.
 
-Ce projet a pour objectif d’explorer et d’enrichir des données d’adresses françaises en combinant la puissance de deux APIs publiques et l'intelligence artificielle locale.
+```markdown
+# 🌍 TP2 Pipeline BIS – Exploration et Enrichissement GEO
 
-###Sources de données* 
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-Data_Analysis-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![Plotly](https://img.shields.io/badge/Plotly-Visualization-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
+![LLaMA](https://img.shields.io/badge/AI-LLaMA_3.2-orange?style=for-the-badge)
 
-📍 **API Adresse (Base Adresse Nationale - BAN)** : Géocodage, récupération de la latitude, longitude, code postal et ville.
-* 🏙️ **Geo API Gouv (Communes)** : Enrichissement démographique (population, département, etc.).
+## 📖 1. Présentation du projet
 
-###Fonctionnalités clés
-Le pipeline est entièrement automatisé et réalise les tâches suivantes :
+Ce projet a pour objectif d’explorer et d’enrichir des données d’adresses françaises à l’aide de deux APIs et d'un modèle d'IA local.
 
-1. **Géocodage et enrichissement** des adresses.
-2. **Transformation et nettoyage** (suppression des doublons, gestion des valeurs manquantes, normalisation).
-3. **Analyse de la qualité** (complétude, détection d'anomalies, scoring).
-4. **Visualisation** (cartes interactives, graphiques démographiques).
-5. **Assistance IA** : Utilisation de **LLaMA 3.2** en local pour générer des recommandations et du code d’analyse.
+### Sources de données
+* 📍 **API Adresse (Base Adresse Nationale - BAN)** : Géocodage, récupération latitude/longitude, code postal et ville.
+* 🏙️ **Geo API Gouv (Communes)** : Enrichissement démographique (population, département).
 
-
-
-##⚙️ Architecture du Pipeline
-Le pipeline est conçu de manière **modulaire et reproductible**.
-
-###1. Fetchers (`pipeline/fetchers`)
-Modules responsables de la récupération des données. Ils héritent d'une classe `BaseFetcher` gérant les retries (Tenacity) et le rate limiting.
-
-* `AdresseFetcher` : Interroge l'API BAN.
-* `CommuneFetcher` : Interroge Geo API Gouv.
-
-###2. Modèles de données (`pipeline/models.py`)
-Utilisation de **Pydantic** pour garantir la structure des données :
-
-* `GeocodingResult` & `CommuneInfo` : Données brutes des APIs.
-* `EnrichedAddress` : Résultat final fusionné.
-* `QualityMetrics` : Indicateurs de qualité du dataset.
-
-###3. Enrichisseur (`pipeline/enricher.py`)
-Le chef d'orchestre `GeoEnricher` coordonne les appels APIs et fusionne les résultats tout en maintenant des statistiques d'exécution.
-
-###4. Transformation (`pipeline/transformer.py`)
-Le `DataTransformer` assure la propreté des données :
-
-* Nettoyage des textes (strip, lower).
-* Imputation des valeurs manquantes (médiane, moyenne).
-* Interaction avec LLaMA pour suggérer des transformations.
-
-###5. Qualité & Stockage
-
-**QualityAnalyzer** :
-Calcule un score global (A, B, C) basé sur la complétude et la précision du géocodage.
-
-**Storage** :
-Sauvegarde en **JSON** (brut) et **Parquet** (optimisé pour l'analyse).
+### Fonctionnalités du pipeline
+1.  **Géocodage et enrichissement** des adresses.
+2.  **Transformation et nettoyage** : suppression des doublons, gestion des valeurs manquantes, normalisation.
+3.  **Analyse de la qualité** : complétude, doublons, score de géocodage.
+4.  **Visualisation** : carte interactive, population par commune, anomalies.
+5.  **Intelligence Artificielle** : Utilisation de **LLaMA 3.2** locale pour générer des recommandations et du code d’analyse.
 
 ---
 
-## 📂 Structure du projet
+## ⚙️ 2.1 Principe de fonctionnement du pipeline
+
+Le pipeline est conçu **modulaire et reproductible**. Chaque composant a un rôle clair :
+
+1.  **Fetchers (`pipeline/fetchers`)**
+    * `AdresseFetcher` : Interroge l’API Adresse (BAN).
+    * `CommuneFetcher` : Interroge Geo API Gouv.
+    * *BaseFetcher* : Gère les requêtes HTTP, le retry automatique (Tenacity) et le rate limiting.
+
+2.  **Modèles de données (`pipeline/models.py`)**
+    * `GeocodingResult` : Résultat brut du géocodage.
+    * `CommuneInfo` : Données administratives.
+    * `EnrichedAddress` : Objet fusionné prêt pour l'analyse.
+
+3.  **Enrichisseur (`pipeline/enricher.py`)**
+    * `GeoEnricher` coordonne les fetchers. Il géocode, récupère les infos communes et produit les objets enrichis.
+
+4.  **Transformations (`pipeline/transformer.py`)**
+    * Nettoyage des données (strip, lower).
+    * Traitement des valeurs manquantes (médiane, moyenne).
+    * Interaction avec LLaMA pour des transformations avancées.
+
+5.  **Analyse de qualité (`pipeline/quality.py`)**
+    * Calcul de la complétude et des scores.
+    * Génération d'un **grade global** (A, B, C) et d'un rapport Markdown.
+
+6.  **Stockage (`pipeline/storage.py`)**
+    * Sauvegarde en **JSON** (données brutes) et **Parquet** (données traitées pour performance).
+
+---
+
+## 📂 2.2 Structure du projet
 
 ```text
 tp2-exploration/
@@ -84,49 +87,43 @@ tp2-exploration/
 ├── pyproject.toml          # Dépendances (uv/poetry)
 └── README.md
 
-
-##🛠️ Choix techniques| Domaine | Technologies | Justification |
-| --- | --- | --- |
-| **APIs** | API Adresse + Geo API | Combinaison stable pour obtenir précision géographique et contexte démographique. |
-| **Core** | Python, Pandas | Standard de l'industrie pour la manipulation de données. |
-| **Visu** | Plotly | Création de cartes et graphiques interactifs. |
-| **IA** | LLaMA 3.2 (Local) | Génération de code et analyse sémantique sans envoi de données vers le cloud. |
-| **Tests** | Pytest | Assurance qualité sur les fetchers et les transformations. |
-| **Stockage** | Parquet | Format colonnaire compressé, idéal pour les performances d'analyse. |
+```
 
 ---
 
-##🚀 Installation et Exécution###
-1. Cloner le projet
+##🛠️ 3. Choix techniques| Composant | Technologie | Justification |
+| --- | --- | --- |
+| **Données** | API Adresse + Geo API | Fiabilité et complémentarité (Géo + Démographie). |
+| **Pipeline** | Python, Pandas | Standard pour la manipulation de données. |
+| **Visu** | Plotly | Graphiques et cartes interactives. |
+| **IA** | LLaMA 3.2 (Local) | Analyse sémantique et génération de code sans fuite de données. |
+| **Stockage** | Parquet | Format compressé et rapide pour la lecture/écriture. |
+| **Tests** | Pytest | Assure la robustesse des fetchers et transformations. |
+
+---
+
+##🚀 4. Installation et exécution###Cloner le projet```bash
 git clone <repo_url>
 cd tp2-exploration
 
+```
 
-###2. Environnement virtuel
-# Création
+###Environnement virtuel```bash
 python -m venv .venv
-
-# Activation
 source .venv/bin/activate   # Linux/macOS
 # ou
 .venv\Scripts\activate      # Windows
 
+```
 
-
-###3. Installation des dépendances
-Ce projet utilise `uv` pour la gestion des paquets.
-
-
+###Installation des dépendances```bash
 uv add httpx pandas duckdb litellm python-dotenv tenacity tqdm pyarrow pydantic pytest
-# ou via pip
-pip install httpx pandas duckdb litellm python-dotenv tenacity tqdm pyarrow pydantic pytest
 
+```
 
+###Exécution du pipelineVia le script principal :
 
-###4. Utilisation
-Vous pouvez lancer le pipeline directement via le script Python :
-
-
+```python
 from pipeline.main import run_pipeline_geo
 
 addresses = [
@@ -135,43 +132,38 @@ addresses = [
     "1 Place Bellecour 69002 Lyon"
 ]
 
-# Lancement du pipeline avec verbose
 stats = run_pipeline_geo(addresses, max_items=10, verbose=True)
 
+```
 
+Ou via les notebooks :
 
-Ou utiliser les **Notebooks Jupyter** :
+* `jupyter notebook notebooks/exploration.ipynb`
+* `jupyter notebook notebooks/test.ipynb`
 
-jupyter notebook notebooks/exploration.ipynb
-jupyter notebook notebooks/test.ipynb
+---
 
+##📊 5. Visualisations incluses* **Carte interactive** : Latitude/longitude des adresses avec indicateur couleur du score de confiance.
+* **Population** : Graphique en barres de la population par commune.
+* **Anomalies** : Détection visuelle des adresses à score faible (<0.5) ou des doublons.
 
+---
 
-##📊 Visualisations et Rapports
-Les notebooks génèrent plusieurs types de visualisations :
+##✅ 6. TestsLes tests unitaires couvrent l'intégralité du pipeline (Fetchers, Transformer, Quality).
 
-* 🗺️ **Carte interactive** : Positionnement des adresses avec code couleur selon le score de confiance.
-* 📊 **Démographie** : Histogramme de la population par commune identifiée.
-* ⚠️ **Anomalies** : Mise en évidence des adresses avec un score de géocodage faible (<0.5) ou des doublons.
+Pour lancer les tests avec un rapport de couverture :
 
-
-
-##✅ TestsLe projet est couvert par des tests unitaires assurant la robustesse du code (Fetchers, Transformer, Quality).
-
-Pour lancer la suite de tests avec rapport de couverture :
-
+```bash
 pytest tests/ -v --cov=pipeline --cov-report=html
 
+```
 
+Un rapport HTML sera généré dans le dossier `htmlcov/`.
 
-*Le rapport HTML sera disponible dans le dossier `htmlcov/'
+---
 
-##📝 Conclusion
+##📝 7. ConclusionCe projet illustre l’intégration de plusieurs APIs pour enrichir des données géographiques au sein d'un pipeline modulaire et testable. L’usage de **LLaMA** apporte une couche d'intelligence pour guider l’analyse, tandis que le format **Parquet** et les visualisations **Plotly** assurent performance et lisibilité.
 
+```
 
-Ce TP illustre la mise en place d'un pipeline de **Data Engineering moderne** :
-
-1. Intégration d'APIs tierces.
-2. Architecture propre (Separation of Concerns).
-3. Utilisation de LLM locaux pour l'aide à l'analyse.
-4. Focus sur la qualité de la donnée (Data Quality) et la visualisation.
+```
